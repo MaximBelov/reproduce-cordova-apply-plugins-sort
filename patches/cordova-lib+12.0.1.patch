@@ -1,0 +1,39 @@
+diff --git a/node_modules/cordova-lib/src/cordova/platform/addHelper.js b/node_modules/cordova-lib/src/cordova/platform/addHelper.js
+index 0856245..b039233 100644
+--- a/node_modules/cordova-lib/src/cordova/platform/addHelper.js
++++ b/node_modules/cordova-lib/src/cordova/platform/addHelper.js
+@@ -15,8 +15,8 @@
+     under the License.
+ */
+ 
+-const path = require('path');
+-const fs = require('fs-extra');
++const fs = require('node:fs');
++const path = require('node:path');
+ const semver = require('semver');
+ const fetch = require('cordova-fetch');
+ const CordovaError = require('cordova-common').CordovaError;
+@@ -58,7 +58,7 @@ function addHelper (cmd, hooksRunner, projectRoot, targets, opts) {
+     // The "platforms" dir is safe to delete, it's almost equivalent to
+     // cordova platform rm <list of all platforms>
+     const platformsDir = path.join(projectRoot, 'platforms');
+-    fs.ensureDirSync(platformsDir);
++    fs.mkdirSync(platformsDir, { recursive: true });
+ 
+     return hooksRunner.fire('before_platform_' + cmd, opts)
+         .then(function () {
+@@ -290,9 +290,14 @@ function installPluginsForNewPlatform (platform, projectRoot, opts) {
+ 
+     // Get a list of all currently installed plugins, ignoring those that have already been installed for this platform
+     // during prepare (installed from config.xml).
++    // Apply plugins sort from package.json
+     const platformJson = PlatformJson.load(plugins_dir, platform);
++    const pkgJson = readPackageJsonIfExists(projectRoot);
++    const pkgJsonCordovaPlugins = Object.keys(pkgJson.cordova.plugins);
+     const plugins = cordova_util.findPlugins(plugins_dir).filter(function (plugin) {
+         return !platformJson.isPluginInstalled(plugin);
++    }).sort(function (a, b) {
++        return pkgJsonCordovaPlugins.indexOf(a) - pkgJsonCordovaPlugins.indexOf(b)
+     });
+     if (plugins.length === 0) {
+         return Promise.resolve();
