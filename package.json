@@ -1,0 +1,31 @@
+{
+  "name": "io.cordova.hellocordova",
+  "displayName": "HelloCordova",
+  "version": "1.0.0",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "main": "index.js",
+  "scripts": {
+    "build": "./test.sh"
+  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Apache Cordova Team",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@thegrizzlylabs/cordova-plugin-genius-scan": "5.2.0",
+    "cordova-android": "13.0.0",
+    "cordova-ios": "7.1.0",
+    "cordova-plugin-file": "8.1.0"
+  },
+  "cordova": {
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "plugins": {
+      "@thegrizzlylabs/cordova-plugin-genius-scan": {},
+      "cordova-plugin-file": {}
+    }
+  }
+}
