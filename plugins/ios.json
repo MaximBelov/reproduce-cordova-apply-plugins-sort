@@ -1,0 +1,19 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "@thegrizzlylabs/cordova-plugin-genius-scan": {
+      "CAMERA_USAGE_DESCRIPTION": "This app needs camera access",
+      "PACKAGE_NAME": "io.cordova.hellocordova"
+    }
+  },
+  "dependent_plugins": {}
+}
